@@ -1,0 +1,11 @@
+.weather-temp{
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -.7px;
+    line-height: 1.07;
+}
+
+.weather-icon{
+    height: 52px !important;
+    width: 52px !important;
+}
