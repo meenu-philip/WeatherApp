@@ -1,11 +1,10 @@
-import { useRef, useEffect } from "react";
-import TextField from '@mui/material/TextField';
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import IconButton from "@mui/material/IconButton";
+import InputBase from "@mui/material/InputBase";
+import { useEffect, useRef } from "react";
 
 interface ILocationsAutoComplete {
-    onSearchClick (params:string) : void
+    onSearchClick(params: string): void
 }
 
 const LocationsAutoComplete = (props: ILocationsAutoComplete) => {
@@ -26,7 +25,7 @@ const LocationsAutoComplete = (props: ILocationsAutoComplete) => {
     }, []);
 
     const onSearchClick = () => {
-        if(inputRef?.current?.value?.trim())
+        if (inputRef?.current?.value?.trim())
             props.onSearchClick(inputRef?.current?.value?.trim())
 
     }
@@ -39,7 +38,7 @@ const LocationsAutoComplete = (props: ILocationsAutoComplete) => {
                 inputProps={{ "aria-label": "Search location" }}
             />
             <IconButton type="button" sx={{ p: "10px" }} aria-label="search" >
-                <SearchIcon onClick={() => onSearchClick()}/>
+                <SearchIcon onClick={() => onSearchClick()} />
             </IconButton>
         </div>
     );
