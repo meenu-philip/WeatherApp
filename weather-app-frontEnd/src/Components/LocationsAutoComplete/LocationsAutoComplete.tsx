@@ -30,7 +30,7 @@ const LocationsAutoComplete = (props: ILocationsAutoComplete) => {
 
     }
     return (
-        <div>
+        <div data-testid={'location-search'}>
             <InputBase
                 sx={{ ml: 1, flex: 1 }}
                 inputRef={inputRef}

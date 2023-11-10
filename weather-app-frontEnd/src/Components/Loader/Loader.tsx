@@ -17,12 +17,13 @@ const Loader = ({ children }: any) => {
     let [color, setColor] = useState("#ffffff");
 
     return (
-        <ClipLoader
-            color={color}
-            loading={loading}
-            cssOverride={override}
-            data-testid="loader"
-        />
+        <span aria-label='loader'>
+            <ClipLoader
+                color={color}
+                loading={loading}
+                cssOverride={override}
+            />
+        </span>
     )
 }
 

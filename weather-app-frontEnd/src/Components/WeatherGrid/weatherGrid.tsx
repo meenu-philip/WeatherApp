@@ -65,8 +65,8 @@ const WeatherGrid = (props: IWeatherGrid) => {
     }
 
     return (
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
-            <DemoPaper variant="elevation">
+        <Stack data-testid={'weather-grid'} direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
+            <DemoPaper variant="elevation" aria-label='weather-grid-summary'>
                 <div className="weather-forecast-container">
 
                     <div className="weather-temp-container">
@@ -79,12 +79,13 @@ const WeatherGrid = (props: IWeatherGrid) => {
                     </div>
                 </div>
             </DemoPaper>
-            <DemoPaper variant="elevation">
+            <DemoPaper variant="elevation" aria-label='weather-grid-details'>
                 <List sx={{
                     width: '100%',
                     minWidth: 360,
                     bgcolor: 'background.paper',
-                }} component="nav" aria-label="mailbox folders">
+                }}
+                    component="nav" aria-label="mailbox folders">
                     {createWeatherList()}
                 </List>
             </DemoPaper>

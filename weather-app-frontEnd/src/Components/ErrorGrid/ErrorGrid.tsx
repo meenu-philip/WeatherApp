@@ -20,7 +20,7 @@ const ErrorGrid = (props: any) => {
     return (
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
             <DemoPaper variant="elevation">
-                <div className="weather-error-container">
+                <div className="weather-error-container" aria-label='weather-error-errorMessage'>
                     <div className="weather-temp-container">
                         Error
                     </div>
