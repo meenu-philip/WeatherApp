@@ -37,8 +37,8 @@ namespace weather_app_backend.Controllers
             builder.Port = -1;
             var query = HttpUtility.ParseQueryString(builder.Query);
             query["q"] = parameters.City + "," + parameters.Country;
-            query["appid"] = "8b7535b42fe1c551f18028f64e8688f7";  // to be updated with a new mechanism
-            builder.Query = query.ToString();
+            var appSettings = HttpContext.RequestServices.GetRequiredService<IConfiguration>();
+            query["appid"] = appSettings.GetValue<string>("OpenWeatherKey"); builder.Query = query.ToString();
             string url = builder.ToString();
 
 
