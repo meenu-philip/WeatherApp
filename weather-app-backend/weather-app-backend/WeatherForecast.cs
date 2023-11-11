@@ -1,13 +1,12 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 namespace weather_app_backend
 {
-    public class WeatherForecast
+    public class QueryParameters
     {
-        public DateOnly Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-        public string? Summary { get; set; }
+        [BindRequired]
+        public string City { get; set; }
+        [BindRequired]
+        public string Country { get; set; }
     }
 }

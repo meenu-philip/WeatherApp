@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using System.Net;
+using System.Web;
 
 namespace weather_app_backend.Controllers
 {
@@ -8,10 +10,7 @@ namespace weather_app_backend.Controllers
     [EnableRateLimiting("fixed")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-         };
+        static readonly string _address = "https://api.openweathermap.org/data/2.5/weather"; // external uri
 
         private readonly ILogger<WeatherForecastController> _logger;
 
@@ -20,16 +19,32 @@ namespace weather_app_backend.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        static private async Task<string> GetExternalResponse(string url)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
+            var data = await response.Content.ReadAsStringAsync();
+            return data;
+        }
+
+        [HttpGet(Name = "GetWeatherForecast")]
+        public async Task<string> Get([FromQuery] QueryParameters parameters)
+        {
+            Ok(new[] { parameters.City, parameters.Country });
+
+            //append query parameters to Weather API
+            var builder = new UriBuilder(_address);
+            builder.Port = -1;
+            var query = HttpUtility.ParseQueryString(builder.Query);
+            query["q"] = parameters.City + "," + parameters.Country;
+            query["appid"] = "8b7535b42fe1c551f18028f64e8688f7";  // to be updated with a new mechanism
+            builder.Query = query.ToString();
+            string url = builder.ToString();
+
+
+            var result = await GetExternalResponse(url);
+            return result;
+
         }
     }
 }
