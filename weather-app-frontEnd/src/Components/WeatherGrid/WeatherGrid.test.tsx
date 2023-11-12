@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import WeatherGrid from './weatherGrid';
+import WeatherGrid from './WeatherGrid';
 
 const mockData = {
     description: 'overcast clouds',

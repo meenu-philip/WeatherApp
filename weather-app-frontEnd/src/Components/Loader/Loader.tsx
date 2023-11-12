@@ -1,30 +1,19 @@
-/*
- This file generates the loader
-*/
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import './Loader.css'; // Import your CSS file for styling
 
-import { CSSProperties, useState } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
-
-
-const override: CSSProperties = {
-    display: "block",
-    margin: "0 auto",
-    borderColor: "red",
-};
-
-const Loader = ({ children }: any) => {
-    let [loading, setLoading] = useState(false);
-    let [color, setColor] = useState("#ffffff");
-
+export const Loader = () => {
     return (
-        <span aria-label='loader'>
-            <ClipLoader
-                color={color}
-                loading={loading}
-                cssOverride={override}
-            />
-        </span>
+        <div className="loader-overlay">
+            <div className="loader-content">
+                <Box sx={{ display: 'flex' }}>
+
+                    <CircularProgress aria-label='loader' />
+                </Box>
+
+            </div>
+        </div>
     )
-}
+};
 
 export default Loader;

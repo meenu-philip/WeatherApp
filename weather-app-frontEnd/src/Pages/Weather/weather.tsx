@@ -3,12 +3,13 @@
 */
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ErrorGrid from '../../Components/ErrorGrid/ErrorGrid';
 import LocationsAutoComplete from '../../Components/LocationsAutoComplete/LocationsAutoComplete';
-import WeatherGrid from '../../Components/WeatherGrid/weatherGrid';
+import WeatherGrid from '../../Components/WeatherGrid/WeatherGrid';
 import { ERROR_MESSAGES } from '../../Constants/constants';
 import { Item } from '../../Constants/styledThemes';
+import { LoaderContext } from '../Layout/layout';
 import { fetchWeather, getStatusError } from './fetchWeather';
 
 
@@ -17,8 +18,11 @@ const Weather = () => {
     const [weatherData, setWeatherData] = useState({});
     const [error, setError] = useState("");
 
+    const { updateLoader } = useContext(LoaderContext);
+
     // Function to handle location change and fetch weather data
     const onLocationChange = async (location: string) => {
+        updateLoader(true);
         try {
             const response = await fetchWeather();
 
@@ -42,6 +46,7 @@ const Weather = () => {
         } catch (e: any) {
             setError(e);
         }
+        updateLoader(false);
     }
 
     return (
