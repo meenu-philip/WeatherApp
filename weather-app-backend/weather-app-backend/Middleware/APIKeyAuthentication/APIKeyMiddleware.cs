@@ -1,4 +1,7 @@
-﻿namespace weather_app_backend.Middleware.APIKeyAuthentication
+﻿using System.Collections;
+using System.Linq;
+
+namespace weather_app_backend.Middleware.APIKeyAuthentication
 {
     public class APIKeyMiddleware
     {
@@ -19,13 +22,14 @@
                 return;
             }
             var appSettings = context.RequestServices.GetRequiredService<IConfiguration>();
-            var apiKey = appSettings.GetValue<string>(APIKEY);
-            if (!apiKey.Equals(extractedApiKey))
+            string[] apiKeys = appSettings.GetSection("AuthKeys").GetChildren().ToArray().Select(c => c.Value).ToArray();
+            if (!((IList)apiKeys).Contains(extractedApiKey.ToString()))
             {
                 context.Response.StatusCode = 401;
                 await context.Response.WriteAsync("Unauthorized client");
                 return;
             }
+
             await _next(context);
         }
     }

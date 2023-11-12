@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Web;
 
@@ -24,7 +26,27 @@ namespace weather_app_backend.Controllers
             var client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(url);
             var data = await response.Content.ReadAsStringAsync();
-            return data;
+            var result = new Result
+            {
+                description = "",
+                error = false
+            };
+
+            try {
+                if (response.IsSuccessStatusCode)
+                { 
+                    var descriptionValue = JObject.Parse(data)
+                        .DescendantsAndSelf()
+                        .OfType<JProperty>()
+                        .Single(x => x.Name.Equals("description")).Value;
+                    result.description = descriptionValue.ToString();
+                }
+            }
+            catch (Exception error)
+            {
+                result.error = true;
+            }
+            return JsonConvert.SerializeObject(result);
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -40,7 +62,6 @@ namespace weather_app_backend.Controllers
             var appSettings = HttpContext.RequestServices.GetRequiredService<IConfiguration>();
             query["appid"] = appSettings.GetValue<string>("OpenWeatherKey"); builder.Query = query.ToString();
             string url = builder.ToString();
-
 
             var result = await GetExternalResponse(url);
             return result;
