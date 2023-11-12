@@ -10,13 +10,16 @@ enum HTTP_STATUS {
     UNAUTHORIZED = 401,
     ACCEPTED = 202,
     NOT_MODIFIED = 304,
+    EXCEED_LIMIT = 429
 }
 
 export function onResponseError(error: any) {
-    if (error.response?.status === HTTP_STATUS.SERVER_ERROR) {
-        return Promise.reject(error.response.data);
+    if (error.response?.status === HTTP_STATUS.SERVER_ERROR ||
+        error.response?.status === HTTP_STATUS.UNAUTHORIZED ||
+        error.response?.status === HTTP_STATUS.EXCEED_LIMIT) {
+        return Promise.reject(error.response);
     }
-    return Promise.reject(error.response);
+    return Promise.reject(error?.response || error?.message);
 }
 
 export function onResponse(response: AxiosResponse) {

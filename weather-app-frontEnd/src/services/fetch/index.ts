@@ -4,7 +4,7 @@ import { onRequest, onRequestError } from './requestInterceptor';
 import { onResponse, onResponseError } from './responseInterceptor';
 
 export const API = axios.create({
-    baseURL: "config.API_BASE",
+    baseURL: process.env.REACT_APP_BASE_URL,
     timeout: 30000,
 });
 

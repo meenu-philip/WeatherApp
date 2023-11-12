@@ -1,23 +1,30 @@
-import { weatherData } from '../../services/apis/mocks/weatherData';
-
-interface IWeatherData {
-    weather: any[],
-    main: {},
-    name: string,
-}
+import { ERROR_MESSAGES, HTTP_STATUS } from '../../Constants/constants';
+import request from '../../services/fetch/requestHandler';
 
 export const fetchWeather = async () => {
-    const response = weatherData//await request(`endpoint`, 'POST', { data: {}, params: {} });
-    const formattedResponse = responseFormatter(response);
-    return formattedResponse
-
+    try {
+        const response = await request(`weatherforecast?country=uk&city=ljhjhondon`, 'GET', { data: {}, params: {} });
+        const formattedResponse = responseFormatter(response);
+        return formattedResponse;
+    }
+    catch (e) {
+        return e
+    }
 }
 
-const responseFormatter = (response: IWeatherData) => {
-    const { weather, main, name } = response;
-    const weather_data = {
-        main: weather[0]['main'],
-        description: weather[0]['description']
+//To format the retreived json, if required
+const responseFormatter = (response: any) => {
+    return response
+}
+
+// returns the error message for code
+export const getStatusError = (errorCode: number) => {
+    switch (errorCode) {
+        case HTTP_STATUS.UNAUTHORIZED:
+            return ERROR_MESSAGES.UnAuthorised
+        case HTTP_STATUS.EXCEED_LIMIT:
+            return ERROR_MESSAGES.LimitExceeded
+        default:
+            return ERROR_MESSAGES.UnknownError
     }
-    return { weather_data, details: main, name }
 }

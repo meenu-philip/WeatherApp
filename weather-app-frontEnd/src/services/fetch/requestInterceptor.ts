@@ -1,8 +1,8 @@
-import { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
+import { AxiosRequestConfig } from 'axios';
 
 export const onRequest = (config: AxiosRequestConfig) => {
-  const headers = {};
-  const request: AxiosRequestConfig = {
+    const headers = { 'AuthKey': process.env.REACT_APP_SERVICE_KEY };
+    const request: AxiosRequestConfig = {
         method: 'GET',
         ...config,
         headers: {
