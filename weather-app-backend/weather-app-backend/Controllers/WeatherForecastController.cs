@@ -41,6 +41,10 @@ namespace weather_app_backend.Controllers
                         .Single(x => x.Name.Equals("description")).Value;
                     result.description = descriptionValue.ToString();
                 }
+                else
+                {
+                    result.error = true;
+                }
             }
             catch (Exception error)
             {

@@ -2,11 +2,26 @@ using Microsoft.AspNetCore.RateLimiting;
 using weather_app_backend.Middleware.APIKeyAuthentication;
 using weather_app_backend.Middleware.RateLimiter;
 
+var AllowSpecificOrigins = "AllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+// Add CORS enabling
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:3000") // Add the URL of your React app
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -34,7 +49,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseRateLimiter();
+//Use CORS
+app.UseCors();
 
 // Use API Authentication
 app.UseMiddleware<APIKeyMiddleware>();
