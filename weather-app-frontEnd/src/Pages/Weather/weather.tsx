@@ -3,13 +3,14 @@
 */
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { useContext, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
 import ErrorGrid from '../../Components/ErrorGrid/ErrorGrid';
 import LocationAutoComplete from '../../Components/LocationsAutoComplete/LocationsAutoComplete';
 import WeatherGrid from '../../Components/WeatherGrid/WeatherGrid';
 import { ERROR_MESSAGES } from '../../Constants/constants';
 import { Item } from '../../Constants/styledThemes';
-import { LoaderContext } from '../Layout/layout';
+import { LoaderContext } from '../Layout/Layout';
+import './Weather.css';
 import { fetchWeather, getStatusError } from './fetchWeather';
 
 
@@ -55,10 +56,10 @@ const Weather = () => {
     }
 
     return (
-        <div className="Weather">
-            <Box sx={{ width: '100%' }}>
+        <div className="weather-page">
+            <Box sx={{ width: '100%' }} className='weather-box'>
                 {/* Grid container for layout */}
-                <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className='weather-grid'>
                     {/* Location input */}
                     <Grid item xs={12}>
                         <Item>
@@ -67,18 +68,16 @@ const Weather = () => {
                         </Item>
                     </Grid>
                     {/* Display weather or error message */}
-                    <Grid item xs={12}
-                        container
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="stretch"
-                    >
-                        <Item>
-                            {/* Conditionally render either the WeatherGrid component with weather data or the ErrorGrid component with an error message */}
-                            {!error ? <WeatherGrid data={weatherData} /> : <ErrorGrid message={error} />}
-                        </Item>
-                    </Grid>
+                    {(Object.keys(weatherData).length && !error) ?
+                        <Grid item xs={12}>
+                            <Item>
+                                {/* Conditionally render either the WeatherGrid component with weather data or the ErrorGrid component with an error message */}
+                                {!error ? <WeatherGrid data={weatherData} /> : <ErrorGrid message={error} />}
+                            </Item>
+                        </Grid> : <Fragment />}
                 </Grid>
+                {error && <ErrorGrid message={error} />}
+
             </Box>
         </div>
     );

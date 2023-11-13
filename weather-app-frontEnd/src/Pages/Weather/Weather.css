@@ -1,0 +1,20 @@
+.weather-page{
+    margin: 0 auto;
+    padding: 10%;
+}
+.weather-box{
+    margin: 20px 0;
+}
+
+@media screen and (max-width: 600px) {
+    .weather-page {
+      margin: auto;
+      width: auto;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    .weather-page {
+      width: 50%;
+    }
+  }

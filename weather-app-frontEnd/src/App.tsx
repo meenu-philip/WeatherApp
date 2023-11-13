@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
-import Layout from './Pages/Layout/layout';
+import Layout from './Pages/Layout/Layout';
 import Weather from './Pages/Weather/Weather';
 
 

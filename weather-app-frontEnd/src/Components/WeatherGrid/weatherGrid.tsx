@@ -3,7 +3,7 @@ This file includes component to create grids to show the retrived weather detail
 */
 
 import Stack from '@mui/material/Stack';
-import { DemoPaper } from '../../Constants/styledThemes';
+import { capitalizeFirstLetter } from '../../utils';
 import './weather.css';
 
 interface IWeatherGrid {
@@ -16,16 +16,14 @@ interface IWeatherGrid {
 const WeatherGrid = (props: IWeatherGrid) => {
 
     return (
-        <Stack data-testid={'weather-grid'} direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
-            <DemoPaper variant="elevation" aria-label='weather-grid-summary'>
-                <div className="weather-forecast-container">
-                    <div className="weather-temp-container">
-                        <div className="weather-real-feel">
-                            {props?.data?.description}
-                        </div>
+        <Stack data-testid={'weather-grid'} >
+            <div className="weather-forecast-container">
+                <div className="weather-temp-container">
+                    <div className="weather-real-feel">
+                        Forecasted Weather : <b>{capitalizeFirstLetter(props?.data?.description)}</b>
                     </div>
                 </div>
-            </DemoPaper>
+            </div>
         </Stack >
     )
 }

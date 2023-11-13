@@ -14,7 +14,7 @@ const Layout = ({ children }: any) => {
         <>
             <Header />
             <LoaderContext.Provider value={{ updateLoader }}>
-                <main>
+                <main className='weather-layout'>
                     {isloading && <Loader />}
                     {children}
                 </main>
