@@ -8,9 +8,9 @@ This is react web application to retrieve forecasted weather of a location.
 
 ## Technologies used
 
-Node js
-Visual Studio Code (any IDE of your choice)
-Material UI
+1. Node js
+2. Visual Studio Code (any IDE of your choice)
+3. React JS, TypeScript, Material UI
 
 ## Setup/Installation
 
@@ -18,8 +18,8 @@ Material UI
 2. Clone the project and go to root folder of the webapplication
 3. Run 'npm install' to install package dependencies.
 4. Create an environment file in root directory and add below keys
-   REACT_APP_BASE_URL= <<The base URL which hosts the service. >>
-   REACT_APP_SERVICE_KEY=<<Authentication API to access the service>>
+   1. REACT_APP_BASE_URL= <<The base URL which hosts the service. >>
+   2. REACT_APP_SERVICE_KEY=<<Authentication API to access the service>>
 
 ## Available Scripts
 
