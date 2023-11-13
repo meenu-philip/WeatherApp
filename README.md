@@ -2,7 +2,7 @@
 
 ## About the project
 
-This is a react web application to retrieve forecasted weather of a location.
+This is a react web application to retrieve current weather of a location.
 
 ### Front End Application
 
