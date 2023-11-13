@@ -2,7 +2,7 @@
 
 ## About the project
 
-This is a ASP.NET C# application to generate a REST service for retreiving current weather data for a location. It uses the [Open Weather Map](https://openweathermap.org/current)] services to retrieve the information.
+This is a ASP.NET C# application to generate a REST service for retreiving current weather data for a location. It uses the [Open Weather Map](https://openweathermap.org/current) services to retrieve the information.
 
 ## Technologies used
 
