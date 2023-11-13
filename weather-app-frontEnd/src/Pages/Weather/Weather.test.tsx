@@ -55,7 +55,7 @@ describe('Weather', () => {
         // // Verify that the weather grid with the correct data is rendered
         // const weatherGrid = screen.getByTestId('weather-grid');
         // expect(weatherGrid).toBeInTheDocument();
-        // expect(weatherGrid).toHaveTextContent(/Forecasted Weather : sunny/i);
+        // expect(weatherGrid).toHaveTextContent(/Current Weather : sunny/i);
         // expect(screen.queryByText(/Error/i)).not.toBeInTheDocument();
         const locationAutocomplete = screen.getByLabelText('Search Locations')
         expect(locationAutocomplete).toBeInTheDocument();

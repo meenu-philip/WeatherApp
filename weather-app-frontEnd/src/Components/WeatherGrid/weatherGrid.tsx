@@ -20,7 +20,7 @@ const WeatherGrid = (props: IWeatherGrid) => {
             <div className="weather-forecast-container">
                 <div className="weather-temp-container">
                     <div className="weather-real-feel">
-                        Forecasted Weather : <b>{capitalizeFirstLetter(props?.data?.description)}</b>
+                        Current Weather : <b>{capitalizeFirstLetter(props?.data?.description)}</b>
                     </div>
                 </div>
             </div>
