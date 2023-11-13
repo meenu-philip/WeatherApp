@@ -17,7 +17,7 @@ interface ILocationAutoComplete {
 }
 
 // Fetches locations based on a query string
-const fetchLocations = async (query: string): Promise<Location[]> => {
+export const fetchLocations = async (query: string): Promise<Location[]> => {
     const response = await fetch(
         `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=8b7535b42fe1c551f18028f64e8688f7`
     );
@@ -32,7 +32,7 @@ const fetchLocations = async (query: string): Promise<Location[]> => {
     return filteredLocations;
 };
 
-const LocationAutocomplete = (props: ILocationAutoComplete) => {
+export const LocationsAutocomplete = (props: ILocationAutoComplete) => {
     const [inputValue, setInputValue] = useState('');
     const [selectedValue, setSelectedValue] = useState<Location | null>(null);
 
@@ -97,4 +97,3 @@ const LocationAutocomplete = (props: ILocationAutoComplete) => {
     );
 };
 
-export default LocationAutocomplete;

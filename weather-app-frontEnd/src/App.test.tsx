@@ -1,8 +1,15 @@
 import { render, screen } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const element = screen.getByTestId('app-element')
-  expect(element).toBeInTheDocument();
+// Test case for rendering the App component
+test('renders App component', () => {
+  render(
+    <QueryClientProvider client={new QueryClient()}>
+      <App />
+    </QueryClientProvider>
+  );
+
+  expect(screen.getByTestId('app-element')).toBeInTheDocument();
 });
+

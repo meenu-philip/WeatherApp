@@ -11,8 +11,8 @@ function App() {
 
       <div className="App">
         <header className="App-header" data-testid="app-element">
-          <Layout>
-            <Weather />
+          <Layout data-testid="app-element-layout">
+            <Weather data-testid="app-element-weather" />
           </Layout>
 
         </header>

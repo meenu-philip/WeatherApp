@@ -1,8 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import ErrorGrid from './ErrorGrid';
 
-test('renders Error Component', () => {
-    render(<ErrorGrid message='Test Error' />);
-    const errorElement = screen.getByLabelText('weather-error-errorMessage');
-    expect(errorElement).toBeInTheDocument();
+
+// Test case for rendering the error message
+test('renders error message', () => {
+    const errorMessage = 'Something went wrong!';
+    render(<ErrorGrid message={errorMessage} />);
+    expect(screen.getByText(/Error: Something went wrong!/)).toBeInTheDocument();
 });
+

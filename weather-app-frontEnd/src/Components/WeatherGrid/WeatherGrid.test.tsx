@@ -10,9 +10,9 @@ describe('Weather Grid', () => {
 
     test('weather grids are present', () => {
         render(<WeatherGrid data={mockData} />);
-        const summaryElement = screen.getByLabelText('weather-grid-summary');
+        const summaryElement = screen.getByText(/Forecasted/i);
         expect(summaryElement).toBeInTheDocument();
-        const detailsElement = screen.getByLabelText('weather-grid-details');
+        const detailsElement = screen.getByText(/Overcast clouds/);
         expect(detailsElement).toBeInTheDocument();
     });
 })

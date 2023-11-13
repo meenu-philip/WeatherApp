@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Fragment, useContext, useState } from 'react';
 import ErrorGrid from '../../Components/ErrorGrid/ErrorGrid';
-import LocationAutoComplete from '../../Components/LocationsAutoComplete/LocationsAutoComplete';
+import { LocationsAutocomplete } from '../../Components/LocationsAutoComplete/LocationsAutoComplete';
 import WeatherGrid from '../../Components/WeatherGrid/WeatherGrid';
 import { ERROR_MESSAGES } from '../../Constants/constants';
 import { Item } from '../../Constants/styledThemes';
@@ -58,18 +58,17 @@ const Weather = () => {
     return (
         <div className="weather-page">
             <Box sx={{ width: '100%' }} className='weather-box'>
-                {/* Grid container for layout */}
                 <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className='weather-grid'>
-                    {/* Location input */}
                     <Grid item xs={12}>
                         <Item>
                             {/* Render the LocationsAutoComplete component and pass the onSearchClick callback */}
-                            <LocationAutoComplete onLocationSelect={(location: object) => onLocationChange(location)} onLocationClear={() => onLocationEmpty()} />
+                            <LocationsAutocomplete onLocationSelect={(location: object) => onLocationChange(location)}
+                                onLocationClear={() => onLocationEmpty()} aria-label='weather-locationAutocomplete' />
                         </Item>
                     </Grid>
                     {/* Display weather or error message */}
                     {(Object.keys(weatherData).length && !error) ?
-                        <Grid item xs={12}>
+                        <Grid item xs={12} data-testid-='weather-data'>
                             <Item>
                                 {/* Conditionally render either the WeatherGrid component with weather data or the ErrorGrid component with an error message */}
                                 {!error ? <WeatherGrid data={weatherData} /> : <ErrorGrid message={error} />}

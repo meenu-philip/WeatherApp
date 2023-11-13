@@ -2,7 +2,11 @@ import { createContext, useState } from 'react';
 import Header from '../../Components/Header/Header';
 import Loader from '../../Components/Loader/Loader';
 
-export const LoaderContext = createContext<any>(null);
+interface IContextShape {
+    updateLoader: (value: boolean) => void
+}
+
+export const LoaderContext = createContext<IContextShape>({ updateLoader: () => { } });
 const Layout = ({ children }: any) => {
     const [isloading, setLoader] = useState(false);
 
@@ -13,7 +17,7 @@ const Layout = ({ children }: any) => {
     return (
         <>
             <Header />
-            <LoaderContext.Provider value={{ updateLoader }}>
+            <LoaderContext.Provider value={{ updateLoader: updateLoader }}>
                 <main className='weather-layout'>
                     {isloading && <Loader />}
                     {children}
