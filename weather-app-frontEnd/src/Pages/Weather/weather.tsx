@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useContext, useState } from 'react';
 import ErrorGrid from '../../Components/ErrorGrid/ErrorGrid';
-import LocationsAutoComplete from '../../Components/LocationsAutoComplete/LocationsAutoComplete';
+import LocationAutoComplete from '../../Components/LocationsAutoComplete/LocationsAutoComplete';
 import WeatherGrid from '../../Components/WeatherGrid/WeatherGrid';
 import { ERROR_MESSAGES } from '../../Constants/constants';
 import { Item } from '../../Constants/styledThemes';
@@ -21,10 +21,10 @@ const Weather = () => {
     const { updateLoader } = useContext(LoaderContext);
 
     // Function to handle location change and fetch weather data
-    const onLocationChange = async (location: string) => {
+    const onLocationChange = async (location: any) => {
         updateLoader(true);
         try {
-            const response = await fetchWeather();
+            const response = await fetchWeather(location);
 
             // Check if response is an object and has a 'description' property
             if (typeof (response) === 'object' && response['description']) {
@@ -49,6 +49,11 @@ const Weather = () => {
         updateLoader(false);
     }
 
+    const onLocationEmpty = () => {
+        setWeatherData({});
+        setError("");
+    }
+
     return (
         <div className="Weather">
             <Box sx={{ width: '100%' }}>
@@ -57,9 +62,8 @@ const Weather = () => {
                     {/* Location input */}
                     <Grid item xs={12}>
                         <Item>
-                            {/* <LocationAutoComplete /> */}
                             {/* Render the LocationsAutoComplete component and pass the onSearchClick callback */}
-                            <LocationsAutoComplete onSearchClick={(e: string) => onLocationChange(e)} />
+                            <LocationAutoComplete onLocationSelect={(location: object) => onLocationChange(location)} onLocationClear={() => onLocationEmpty()} />
                         </Item>
                     </Grid>
                     {/* Display weather or error message */}

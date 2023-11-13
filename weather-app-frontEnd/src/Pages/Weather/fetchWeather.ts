@@ -1,9 +1,9 @@
 import { ERROR_MESSAGES, HTTP_STATUS } from '../../Constants/constants';
 import request from '../../services/fetch/requestHandler';
 
-export const fetchWeather = async () => {
+export const fetchWeather = async (location: any) => {
     try {
-        const response = await request(`weatherforecast?country=uk&city=ljhjhondon`, 'GET', { data: {}, params: {} });
+        const response = await request(`weatherforecast?country=${location?.country}&city=${location?.city}`, 'GET', { data: {}, params: {} });
         const formattedResponse = responseFormatter(response);
         return formattedResponse;
     }

@@ -1,22 +1,73 @@
+
 import { fireEvent, render, screen } from '@testing-library/react';
-import LocationsAutoComplete from './LocationsAutoComplete';
+import LocationAutocomplete from './LocationsAutoComplete';
 
+// Mock the API response for fetchLocations function
+jest.mock('./fetchLocations', () => ({
+    __esModule: true,
+    default: jest.fn((query) => {
+        return Promise.resolve([
+            { name: 'London', state: 'England', country: 'UK' },
+            { name: 'New York', state: 'New York', country: 'US' },
+        ]);
+    }),
+}));
 
-describe('Locations Auto Complete Component', () => {
-    const handleClick = jest.fn()
-
-    test('text field is present', () => {
-        render(<LocationsAutoComplete onSearchClick={handleClick()} />);
-        const textElement = screen.getByRole('textbox');
-        expect(textElement).toBeInTheDocument();
+describe('LocationAutocomplete', () => {
+    it('renders the autocomplete component', () => {
+        render(
+            <LocationAutocomplete onLocationSelect={jest.fn()} onLocationClear={jest.fn()} />
+        );
+        const inputElement = screen.getByLabelText('Search Locations');
+        expect(inputElement).toBeInTheDocument();
     });
 
-    test('search icon is present and it invokes a function', () => {
-        render(<LocationsAutoComplete onSearchClick={handleClick()} />);
-        const searchElement = screen.getByRole('button');
-        expect(searchElement).toBeInTheDocument();
-        fireEvent.click(searchElement)
-        expect(handleClick).toHaveBeenCalledTimes(1)
-    });
-})
+    it('fetches and populates dropdown based on input', async () => {
+        render(
+            <LocationAutocomplete onLocationSelect={jest.fn()} onLocationClear={jest.fn()} />
+        );
+        const inputElement = screen.getByLabelText('Search Locations');
+        fireEvent.change(inputElement, { target: { value: 'London' } });
+        await screen.findByText('London, England, UK');
 
+        const optionElement1 = screen.getByText('London, England, UK');
+        expect(optionElement1).toBeInTheDocument();
+    });
+
+    it('calls onLocationSelect when a value is selected', async () => {
+        const onLocationSelect = jest.fn();
+        render(
+            <LocationAutocomplete onLocationSelect={onLocationSelect} onLocationClear={jest.fn()} />
+        );
+
+        const inputElement = screen.getByLabelText('Search Locations');
+        fireEvent.change(inputElement, { target: { value: 'London' } });
+
+        await screen.findByText('London, England, UK');
+
+        const optionElement1 = screen.getByText('London, England, UK');
+        fireEvent.click(optionElement1);
+
+        expect(onLocationSelect).toHaveBeenCalledWith({
+            city: 'London',
+            country: 'UK',
+        });
+    });
+
+    it('calls onLocationClear when the selection is cleared', async () => {
+        const onLocationClear = jest.fn();
+
+        render(
+            <LocationAutocomplete
+                onLocationSelect={jest.fn()}
+                onLocationClear={onLocationClear}
+                value={{ name: 'London', state: 'England', country: 'UK' }}
+            />
+        );
+
+        const clearIcon = screen.getByTestId('clear-icon');
+        fireEvent.click(clearIcon);
+
+        expect(onLocationClear).toHaveBeenCalled();
+    });
+});
