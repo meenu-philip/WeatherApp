@@ -42,21 +42,6 @@ describe('Weather', () => {
             <Weather />
         </QueryClientProvider>);
 
-        // const locationInput = screen.getByPlaceholderText(/Enter location/i) as HTMLInputElement;
-        // const searchButton = screen.getByRole('button', { name: /Search/i });
-
-        // // Enter a valid location and click the search button
-        // locationInput.value = 'validLocation';
-        // searchButton.click();
-
-        // // Wait for the loading state to be removed
-        // await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
-
-        // // Verify that the weather grid with the correct data is rendered
-        // const weatherGrid = screen.getByTestId('weather-grid');
-        // expect(weatherGrid).toBeInTheDocument();
-        // expect(weatherGrid).toHaveTextContent(/Current Weather : sunny/i);
-        // expect(screen.queryByText(/Error/i)).not.toBeInTheDocument();
         const locationAutocomplete = screen.getByLabelText('Search Locations')
         expect(locationAutocomplete).toBeInTheDocument();
     });
@@ -66,19 +51,6 @@ describe('Weather', () => {
             <Weather />
         </QueryClientProvider>);
 
-        // const locationInput = screen.getByPlaceholderText(/Enter location/i) as HTMLInputElement;
-        // const searchButton = screen.getByRole('button', { name: /Search/i });
-
-        // // Enter an invalid location and click the search button
-        // locationInput.value = 'errorLocation';
-        // searchButton.click();
-
-        // // Wait for the loading state to be removed
-        // await waitForElementToBeRemoved(() => screen.queryByText(/Loading/i));
-
-        // // Verify that the error message is displayed
-        // expect(screen.queryByTestId('weather-grid')).not.toBeInTheDocument();
-        // expect(screen.getByText(/Not Available/i)).toBeInTheDocument();
         const dataElement = screen.queryByTestId('weather-data');
         expect(dataElement).toBeNull();
 

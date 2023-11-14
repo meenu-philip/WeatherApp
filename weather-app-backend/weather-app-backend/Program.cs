@@ -29,16 +29,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddRateLimiting(builder.Configuration);
 
 
-// Rate Limiter
-//builder.Services.AddRateLimiter(options => {
-//    options.RejectionStatusCode = 429;
-//    options.AddFixedWindowLimiter(policyName: "fixed", options => {
-//        options.PermitLimit = 2;
-//        options.Window = TimeSpan.FromSeconds(10);
-//        options.AutoReplenishment = true;
-//    });
-//});
-
 var app = builder.Build();
 
 
