@@ -10,4 +10,4 @@ This is built in React JS. [Click here](https://github.com/meenu-philip/WeatherA
 
 ### Service Application
 
-This is built using ASP.Nte [Click here](https://github.com/meenu-philip/WeatherApp/main/weather-app-backend) for further details
+This is built using ASP.Nte [Click here](https://github.com/meenu-philip/WeatherApp/tree/main/weather-app-backend) for further details
